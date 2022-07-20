@@ -91,6 +91,18 @@ def toggle():
         entry22.config(show= '')
     else:
         entry22.config(show= '*')
+        
+ def toggle1():
+    if show_pass1.get() == 1:
+        entry7.config(show= '')
+    else:
+        entry7.config(show= '*')
+
+def toggle2():
+    if show_pass2.get() == 1:
+        entry50.config(show= '')
+    else:
+        entry50.config(show= '*')
                
     
    
@@ -236,7 +248,60 @@ def create():
     label50 = Label(editor, text='Confirm Password', fg='black', bg='white').place(x=292, y=385)
     entry50 = Entry(editor,fg='black', bg='white', show='*')
     entry50.place(x=300, y=410)
+    global show_pass1
+
+    global show_pass2
+    
+    show_pass1=IntVar()
+    show_pass2=IntVar()
+    checkbutton1 = Checkbutton (editor,bg='white',variable=show_pass1,command=toggle1)
+    lebeelll1=Label(editor,text='show',bg='white')
+    lebeelll1.place(x=465,y=355)
+    checkbutton1.place(x=437,y=355)
+    checkbutton2 = Checkbutton (editor,bg='white',variable=show_pass2,command=toggle2)
+    lebeelll2=Label(editor,text='show',bg='white')
+    lebeelll2.place(x=465,y=410)
+    checkbutton2.place(x=437,y=405)
+    
     
     
     my_label1.pack()
     editor.mainloop()
+    
+    bg = PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\screen2.png")
+    
+my_label = Label(window, image=bg)
+frame = Frame(window, bg='white').place(x=350, y=100, width=300, height=500)
+image1 = Image.open(r"C:\Users\ittra\OneDrive\Desktop\photos for tkinter\user4.png")
+photoimage1 = ImageTk.PhotoImage(image1)
+labelimg1 = Label(image=photoimage1, bg='white', fg='white', borderwidth=0).place(x=460, y=105)
+label = Label(window, text='GET STARTED', font=(20), fg='blue', bg='white').place(x=440, y=170)
+label1 = Label(window, text='Username', bg='white').place(x=457, y=215)
+label8=PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\entry1.png")
+label=Label(window,image=label8,bg='white').place(x=451,y=235)
+label9=PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\entry1.png")
+label=Label(window,image=label8,bg='white').place(x=451,y=280)
+
+entry21 = Entry(window, fg='black', bg='white')
+entry21.place(x=460, y=240)
+label2 = Label(window, text='Password', bg='white').place(x=458, y=262)
+entry22 = Entry(window, fg='black', bg='white', show='*')
+entry22.place(x=460, y=285)
+
+
+
+
+
+image2= Image.open(r"C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\men2.png")
+photoimage2 = ImageTk.PhotoImage(image2)
+labelimg2 = Label(image=photoimage2, bg='white', fg='white', borderwidth=0).place(x=420, y=238)
+image3 = Image.open(r"C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\lock1.png")
+photoimage3 = ImageTk.PhotoImage(image3)
+labelimg3 = Label(image=photoimage3, bg='white', fg='white', borderwidth=0).place(x=420, y=283)
+login_btn = PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\button6.png") 
+img = Button(window, image=login_btn,command=login,borderwidth=0).place(x=470, y=345)
+
+label3 = Label(window, text="Don't have a account?", fg='black', bg='white').place(x=425, y=390)
+button2 = Button(window, text='Sign up here', fg='blue', bg='white', borderwidth=0, command=create).place(x=560, y=390)
+show_pass= IntVar()
+
