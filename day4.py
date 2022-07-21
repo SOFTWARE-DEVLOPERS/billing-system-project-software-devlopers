@@ -1,4 +1,5 @@
 from email import message
+from logging import exception
 from tkinter import *
 
 from mysqlx import Statement
@@ -18,11 +19,21 @@ import regisdb
 
 
 
+
+
+
 special_ch= ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*',  '-', '_', '+', '=',  '[', ']', '|', '\\', '/', ':', ';', '"', "'", '<', '>', ',', '.', '?']
 
 
 global entry21
 global entry22
+global entry51
+global entry52
+global entry53
+global entry54
+global entry55
+global entry56
+
 
 
 
@@ -33,41 +44,46 @@ global entry22
 def login():
     username=entry21.get()
     password=entry22.get()
-    
 
 
-    if (username=="" and password==''):
-        messagebox.showinfo('error','Enter your username and password')
+    try:
+
+
+        if (username=="" and password==''):
+           messagebox.showinfo('error','Enter your username and password')
         
     
 
 
-    elif(username!='' and  password==''):
-        messagebox.showinfo('','Enter your password')
-        entry22.delete(0,END)
+        elif(username!='' and  password==''):
+           messagebox.showinfo('','Enter your password')
+           entry22.delete(0,END)
 
-    elif(username==''  and password!=''):
-        messagebox.showinfo('','Enter your username')
-        entry21.delete(0,END)
-    else:
-        with sqlite3.connect('regis.db') as db:
+        elif(username==''  and password!=''):
+           messagebox.showinfo('','Enter your username')
+           entry21.delete(0,END)
+        else:
+         with sqlite3.connect('regis.db') as db:
             c=db.cursor()
-        find_user=('select * from regis where Username=? and Confirm_password=?')
-        c.execute(find_user,(username,password))
-        result=c.fetchall()
-        if result:
+            find_user=('select * from regis where Username=? and Confirm_password=?')
+            c.execute(find_user,(username,password))
+            result=c.fetchall()
+            if result:
         
-           messagebox.showinfo('','logged in successfully')
+               messagebox.showinfo('','logged in successfully')
             
 
        
 
 
            
-        else:
-            messagebox.showerror('','Incorrect Username and Password ')
-            entry21.delete(0,END)
-            entry22.delete(0,END)
+            else:
+               messagebox.showerror('','Incorrect Username and Password ')
+               entry21.delete(0,END)
+               entry22.delete(0,END)
+    except exception as ep:
+        messagebox.showerror('error',ep)
+
     
 
         
@@ -91,8 +107,8 @@ def toggle():
         entry22.config(show= '')
     else:
         entry22.config(show= '*')
-        
- def toggle1():
+
+def toggle1():
     if show_pass1.get() == 1:
         entry7.config(show= '')
     else:
@@ -104,6 +120,7 @@ def toggle2():
     else:
         entry50.config(show= '*')
                
+            
     
    
 
@@ -200,6 +217,7 @@ def create():
     global entry6
     global entry7
     global entry50
+    
 
     editor.title('SIGN UP')
     editor.geometry("700x600+400+70")
@@ -254,6 +272,9 @@ def create():
     
     show_pass1=IntVar()
     show_pass2=IntVar()
+    
+ 
+    
     checkbutton1 = Checkbutton (editor,bg='white',variable=show_pass1,command=toggle1)
     lebeelll1=Label(editor,text='show',bg='white')
     lebeelll1.place(x=465,y=355)
@@ -263,13 +284,22 @@ def create():
     lebeelll2.place(x=465,y=410)
     checkbutton2.place(x=437,y=405)
     
-    
-    
+
     my_label1.pack()
     editor.mainloop()
+
+
+
+
+ 
+ 
+
+
+
     
-    bg = PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\screen2.png")
-    
+
+
+bg = PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\screen2.png")
 my_label = Label(window, image=bg)
 frame = Frame(window, bg='white').place(x=350, y=100, width=300, height=500)
 image1 = Image.open(r"C:\Users\ittra\OneDrive\Desktop\photos for tkinter\user4.png")
@@ -304,4 +334,32 @@ img = Button(window, image=login_btn,command=login,borderwidth=0).place(x=470, y
 label3 = Label(window, text="Don't have a account?", fg='black', bg='white').place(x=425, y=390)
 button2 = Button(window, text='Sign up here', fg='blue', bg='white', borderwidth=0, command=create).place(x=560, y=390)
 show_pass= IntVar()
+
+
+
+
+
+checkbutton = Checkbutton (window,bg='white',variable=show_pass,command=toggle)
+lebeelll=Label(window,text='show password',bg='white')
+lebeelll.place(x=500,y=312)
+checkbutton.place(x=470,y=310)
+
+
+
+
+my_label.pack()
+
+
+window.mainloop()
+
+
+
+
+
+
+
+
+
+
+
 
