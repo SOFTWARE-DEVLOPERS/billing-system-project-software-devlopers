@@ -352,6 +352,23 @@ my_label.pack()
 
 window.mainloop()
 
+# for database
+
+import sqlite3
+conn=sqlite3.connect("regis.db")
+conn.execute("create table if not exists regis(First_name text,Last_name text,Date_of_birth text ,Username text , Enter_password text, Confirm_Password text)")
+
+
+
+def insert(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password):
+
+    query="insert into regis(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password) values(?,?,?,?,?,?)"
+    conn.execute(query,(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password))
+    conn.commit()
+
+conn.commit()
+conn.close()
+
 
 
 
