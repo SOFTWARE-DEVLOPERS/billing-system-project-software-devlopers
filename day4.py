@@ -22,6 +22,9 @@ import regisdb
 
 
 
+
+
+
 special_ch= ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*',  '-', '_', '+', '=',  '[', ']', '|', '\\', '/', ':', ';', '"', "'", '<', '>', ',', '.', '?']
 
 
@@ -37,6 +40,36 @@ global entry56
 
 
 
+def items():
+
+    entry4=IntVar()
+    entry5=IntVar()
+    entry6=IntVar()
+    entry1=StringVar()
+    entry2=StringVar()
+    entry3=StringVar()
+
+    if entry4=='' or entry5=='' or entry6=='' or entry1=='' or entry2=='' or entry3=='':
+        messagebox.shinfo('','Fill all the required data!!!')
+
+    try:
+         int(entry4.get()) and int(entry5.get()) and int(entry6.get())
+
+
+    except Exception as ep:
+        messagebox.showerror('',ep)
+
+
+
+    
+
+
+    
+
+    
+
+  
+
 
 
 
@@ -44,6 +77,8 @@ global entry56
 def login():
     username=entry21.get()
     password=entry22.get()
+    
+    #exception handling
 
 
     try:
@@ -71,11 +106,11 @@ def login():
             if result:
         
                messagebox.showinfo('','logged in successfully')
+               
+           
             
-
-       
-
-
+              
+        
            
             else:
                messagebox.showerror('','Incorrect Username and Password ')
@@ -84,6 +119,18 @@ def login():
     except exception as ep:
         messagebox.showerror('error',ep)
 
+
+
+
+
+    
+
+
+    
+
+    
+
+    
     
 
         
@@ -132,7 +179,9 @@ def register():
     entry55=entry7.get()
     entry56=entry50.get()
 
+    
 
+#exception handling
 
         
     try:
@@ -199,7 +248,7 @@ def register():
     
 
 
-
+#creating a main window
 window = Tk()
 window.title('LOGIN')
 
@@ -207,7 +256,7 @@ window.resizable(FALSE,False)
 window.geometry('1000x670+230+50')
 
 
-
+#for signup 
 def create():
     global editor
     editor = Toplevel(window)
@@ -297,7 +346,7 @@ def create():
 
 
     
-
+#for login page
 
 bg = PhotoImage(file="C:\\Users\\ittra\\OneDrive\\Desktop\\photos for tkinter\\screen2.png")
 my_label = Label(window, image=bg)
@@ -352,7 +401,8 @@ my_label.pack()
 
 window.mainloop()
 
-# for database
+
+#creating a  database
 
 import sqlite3
 conn=sqlite3.connect("regis.db")
@@ -368,15 +418,3 @@ def insert(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , C
 
 conn.commit()
 conn.close()
-
-
-
-
-
-
-
-
-
-
-
-
