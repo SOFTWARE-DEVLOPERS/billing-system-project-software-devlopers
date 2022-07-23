@@ -418,3 +418,128 @@ def insert(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , C
 
 conn.commit()
 conn.close()
+
+
+
+#for Billing dashboard
+
+from tkinter import*
+from tkinter import messagebox
+
+root=Tk()
+root.geometry ("1000x500")
+root. title ("Bill Management")
+root. resizable(False,False)
+
+def Reset():
+    entry_Noddles.delete(0, END)
+    entry_Biscuits.delete(0, END)
+    entry_Bread.delete(0, END)
+    entry_Eggs.delete(0, END)
+    entry_Chips.delete(0, END)
+    entry_Chocolate.delete(0, END)
+    entry_Milk.delete(0, END)
+
+def Total():
+    try:a1=int (Noddles.get())
+    except: a1=0
+    try:a2=int (Biscuits.get())
+    except: a2=0
+    try: a3=int (Eggs.get())
+    except: a3=0
+    try: a4=int (Chips.get ())
+    except: a4=0
+    try: a5=int (Chocolate.get())
+    except: a5=0
+    try:a6=int(Bread.get())
+    except:a6=0
+    try:a7=int(Milk.get())
+    except:a7=0
+    
+
+
+    p1 = 20 * a1
+    p2 = 10 * a2
+    p3 = 15 * a3
+    p4 = 30 * a4
+    p5 = 50 * a5
+    p6 = 35 * a6
+    p7 = 80 * a7
+
+
+    total = Label(f2, font=('aria', 20, 'bold'), text="Total", width=16, fg="lightyellow", bg="black")
+    total.place(x=0, y=50)
+    entry_total = Entry(f2, font=('aria', 20, 'bold'), textvariable=Total_bill, bd = 6, width = 15, bg = "lightgreen")
+    entry_total.place(x=20, y=100)
+    totalcost= p1+p2+p3+p4+p5+p6+p7
+    string_bill="Rs.",str('%.2f'%totalcost)
+    Total_bill.set(string_bill)
+
+#Heading
+Label(text="BILL MANAGEMENT", bg="black", fg="white", font= ("calibri", 33) , width="300", height="2"). pack()
+
+#MENU CARD
+f=Frame (root, bg="lightyellow", highlightbackground="black",highlightthickness=1, width=300, height=370)
+f.place(x=10,y=118)
+Label (f, text="Items", font= ("Gabriola", 40, "bold"), fg="black", bg="lightyellow") .place(x=80,y=0)
+Label(f, font=("Lucida" ,15, 'bold'),text="Noddles. ......Rs.20 perPiece",fg="black",bg="lightyellow").place(x=10,y=80)
+Label(f, font=("Lucida" ,15, 'bold'),text="Biscuit. ......Rs.10 perPiece",fg="black",bg="lightyellow").place(x=10,y=110)
+Label(f, font=("Lucida" ,15, 'bold'),text="Egg. ......Rs.15 perPiece",fg="black",bg="lightyellow").place(x=10,y=140)
+Label(f, font=("Lucida" ,15, 'bold'),text="Chips . ......Rs.30 perPiece",fg="black",bg="lightyellow").place(x=10,y=170)
+Label(f, font=("Lucida" ,15, 'bold'),text="Chocolate. ......Rs.50 perPiece",fg="black",bg="lightyellow").place(x=10,y=200)
+Label(f, font=("Lucida" ,15, 'bold'),text="Bread . ......Rs.35 perPiece",fg="black",bg="lightyellow").place(x=10,y=230)
+Label(f, font=("Lucida" ,15, 'bold'),text="Milk. .....Rs.80 perLitre",fg="black",bg="lightyellow").place(x=10,y=260)
+
+#ENTRY WORK
+f1=Frame (root, bd=5, height=370, width=300, relief=RAISED)
+f1.pack()
+Noddles=StringVar()
+Biscuits=StringVar()
+Eggs=StringVar()
+Chips=StringVar()
+Chocolate=StringVar()
+Bread=StringVar()
+Milk=StringVar()
+Total_bill=StringVar()
+
+f2=Frame(root, bg="lightyellow", highlightbackground="black" ,highlightthickness=1,width=300, height=370)
+f2. place(x=690,y=118)
+Bill=Label(f2, text="Bill", font= ('calibri',20,'bold'),bg="lightgreen")
+Bill.place(x=120,y=10)
+
+#Label
+label_Noddles=Label(f1, font=("aria", 20, 'bold'), text= "Noodles", width=12, fg="BlACK").grid(row=1,column=0)
+label_Biscuits=Label(f1, font=("aria", 20, 'bold'), text= "Biscuit", width=12, fg="BlACK").grid(row=2,column=0)
+label_Eggs=Label(f1, font=("aria", 20, 'bold'), text= "Eggs", width=12, fg="BlACK").grid(row=3,column=0)
+label_Chips=Label(f1, font=("aria", 20, 'bold'), text= "Chips", width=12, fg="BlACK").grid(row=4,column=0)
+label_Chocolate=Label(f1, font=("aria", 20, 'bold'), text= "Chocolate", width=12, fg="BlACK").grid(row=5,column=0)
+label_Bread=Label(f1, font=("aria", 20, 'bold'), text= "Bread", width=12, fg="BlACK").grid(row=6,column=0)
+label_Milk=Label(f1, font=("aria", 20, 'bold'), text= "Milk", width=12, fg="BlACK").grid(row=7,column=0)
+
+
+#Entry
+entry_Noddles=Entry(f1, font=("aria",20, 'bold'), textvariable=Noddles, bd=6,width=8,bg="silver")
+entry_Noddles.grid(row=1,column=1)
+entry_Biscuits=Entry(f1, font=("aria",20, 'bold'), textvariable=Biscuits, bd=6,width=8,bg="silver")
+entry_Biscuits.grid(row=2,column=1)
+entry_Eggs=Entry(f1, font=("aria",20, 'bold'), textvariable=Eggs, bd=6,width=8,bg="silver")
+entry_Eggs.grid(row=3,column=1)
+entry_Chips=Entry(f1, font=("aria",20, 'bold'), textvariable=Chips, bd=6,width=8,bg="silver")
+entry_Chips.grid(row=4,column=1)
+entry_Chocolate=Entry(f1, font=("aria",20, 'bold'), textvariable=Chocolate, bd=6,width=8,bg="silver")
+entry_Chocolate.grid(row=5,column=1)
+entry_Bread=Entry(f1, font=("aria",20, 'bold'), textvariable=Bread, bd=6,width=8,bg="silver")
+entry_Bread.grid(row=6,column=1)
+entry_Milk=Entry(f1, font=("aria",20, 'bold'), textvariable=Milk, bd=6,width=8,bg="silver")
+entry_Milk.grid(row=7,column=1)
+
+#button
+
+btn_reset=Button (f1,bd=5, fg="black",bg="lightblue",font=("ariel",16, 'bold'), width=10, text="Reset",command=Reset)
+btn_reset.grid(row=8, column=0)
+
+btn_total=Button(f1,bd=5, fg="black", bg="lightblue", font=("ariel", 16, 'bold' ), width=10, text="Total", command=Total)
+btn_total.grid(row=8,column=1)
+
+
+root.mainloop()
