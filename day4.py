@@ -40,25 +40,6 @@ global entry56
 
 
 
-def items():
-
-    entry4=IntVar()
-    entry5=IntVar()
-    entry6=IntVar()
-    entry1=StringVar()
-    entry2=StringVar()
-    entry3=StringVar()
-
-    if entry4=='' or entry5=='' or entry6=='' or entry1=='' or entry2=='' or entry3=='':
-        messagebox.shinfo('','Fill all the required data!!!')
-
-    try:
-         int(entry4.get()) and int(entry5.get()) and int(entry6.get())
-
-
-    except Exception as ep:
-        messagebox.showerror('',ep)
-
 
 
     
