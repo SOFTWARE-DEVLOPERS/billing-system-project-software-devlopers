@@ -1,4 +1,3 @@
-#complete code for billing system project 
 from ast import Str
 from email import message
 from http.cookiejar import MozillaCookieJar
@@ -174,6 +173,12 @@ def delete():
     if(newuser2.get() not in userEmails):
         messagebox.showerror('',"Unable to find username")
 
+    elif(newuser2.get()==''):
+
+
+        messagebox.showerror('','Please enter your usename')
+
+
     
     else:
        conn=sqlite3.connect('regis.db')
@@ -202,6 +207,9 @@ def update():
             elif(newUser.get()==''):
                 messagebox.showinfo('',"Nothing was changed")
 
+            elif(newpass.get() != conpass.get()):
+                messagebox.showerror('',"Password didn't matched")
+
             
             
             else:
@@ -213,7 +221,7 @@ def update():
                 First_Name=:First_Name
                 Last_Name=:Last_Name
 
-                Date_of_birth
+                Date_of_birth:Date_of_birth
         
                 Username=:Username,
                 Enter_password=:Enter_Password,
@@ -224,7 +232,7 @@ def update():
 
                 {'Username':newUser.get(),
                 'Enter_Password':newpass.get(),
-                'Confirm_Password':conpass.get(),    
+                'Confirm_Password':conpass.get(),  
                  }
                  )
     
@@ -730,8 +738,8 @@ window.mainloop()
 
 
 
-
 #for database
+
 # import sqlite3
 # conn=sqlite3.connect("regis.db")
 # conn.execute("create table if not exists regis(First_name text,Last_name text,Date_of_birth text ,Username text , Enter_password text, Confirm_Password text)")
@@ -746,6 +754,7 @@ window.mainloop()
 
 # conn.commit()
 # conn.close()
+
 
 
 
