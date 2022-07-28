@@ -96,22 +96,29 @@ def Total():
 
     
 
-
+global special_ch
 special_ch= ['~', '`', '!', '@', '#', '$', '%', '^', '&', '*',  '-', '_', '+', '=',  '[', ']', '|', '\\', '/', ':', ';', '"', "'", '<', '>', ',', '.', '?']
 
 
 def changePassword():
+      global newpass
       global editor
+      global conpass
+      global newUser
+      
       editor = Toplevel(window)
       editor.title("Change Password")
       editor.geometry("400x300+230+50")
 
       emailLabel = Label(editor,text="Change your username")
       emailLabel.pack()    
-      global newUser
+    #   newpass=StringVar()
+    #   conpass=StringVar()
+    #   newUser=StringVar()
+
       newUser = Entry(editor,width=20,font=("Verdana",14))
       newUser.pack()
-      global newpass
+      
       passwordLabel = Label(editor,text="New password")
       passwordLabel.pack() 
 
@@ -122,14 +129,15 @@ def changePassword():
 
       newPasswordLabel = Label(editor,text="Confirm password")
       newPasswordLabel.pack() 
-      global conpass
-      newpass=StringVar()
-      conpass=StringVar()
+      
+      
       conpass = Entry(editor,width=20,font=("Verdana",14))
       conpass.pack()
       btn_update=Button(editor,bd=5, fg="black", bg="lightblue", font=("ariel", 11, 'bold' ), width=30, text="Update",command=update)
       btn_update.place(x=60,y=160)
-
+      
+    
+      
 
 
 
@@ -143,6 +151,8 @@ def del1():
 
       
       global newuser2
+      global newuser1
+      passLabel1=StringVar()
     
       newuser2=StringVar()
       
@@ -152,7 +162,13 @@ def del1():
       
       newuser2= Entry(editor,width=20,font=("Verdana",14))
       newuser2.pack()
+
+      passLabel1 = Label(editor,text="Enter your password")
+      passLabel1.pack()    
       
+      newuser1= Entry(editor,width=20,font=("Verdana",14))
+      newuser1.pack()
+
       btn_update=Button(editor,bd=5, fg="black", bg="lightblue", font=("ariel", 11, 'bold' ), width=30, text="delete",command=delete)
       btn_update.place(x=60,y=160)
 
@@ -168,16 +184,25 @@ ourRecord = c.fetchall()
 for record in ourRecord:
    userEmails.append(record[3])
 
+userpass = []
+
+conn = sqlite3.connect("regis.db")
+
+c = conn.cursor()
+
+c.execute("SELECT *, Confirm_Password FROM regis")
+ourRecord = c.fetchall()
+
+for record in ourRecord:
+   userpass.append(record[5])
+
 def delete():
 
     if(newuser2.get() not in userEmails):
         messagebox.showerror('',"Unable to find username")
 
-    elif(newuser2.get()==''):
-
-
-        messagebox.showerror('','Please enter your usename')
-
+    elif (newuser1.get() not in userpass):
+        messagebox.showerror('',"Incorrect password")
 
     
     else:
@@ -185,8 +210,9 @@ def delete():
        conn.cursor()
        conn.execute("DELETE from regis WHERE Username='" +newuser2.get()+"'")
        conn.commit()
-  
 
+       messagebox.showinfo('',"Account deleted successfully")
+  
 
 
 
@@ -196,19 +222,49 @@ def delete():
 
 def update():
 
+            newuser5=newUser.get()
+            newpass5=newpass.get()
+            conpass5=conpass.get()
+
+      
+   
 
             db=sqlite3.connect('regis.db')
             cr=db.cursor()
             cr.execute(
             "select * from 'regis' WHERE Username='" +newUser.get()+"'")
             r=cr.fetchone()
+         
             if r!=None:
                  messagebox.showerror(" ",'Username already existed')
             elif(newUser.get()==''):
                 messagebox.showinfo('',"Nothing was changed")
 
-            elif(newpass.get() != conpass.get()):
+            elif len(newuser5)>20:
+                messagebox.showinfo(" ",'Too long username')
+
+                
+            elif not any(ch in special_ch for ch in conpass5):
+                messagebox.showinfo (" ",'Atleast one symbolic character is required in password!')
+                
+           
+            
+            elif len(conpass5) < 8 or len(conpass5)>15:
+                messagebox.showinfo (" ",'Password must be minimum of 8 characters and maximum of 15 characters!')
+
+            elif conpass5 != newpass5:
                 messagebox.showerror('',"Password didn't matched")
+
+           
+
+       
+         
+            
+
+
+            
+
+            
 
             
             
@@ -218,11 +274,7 @@ def update():
                 c=conn.cursor()
     
                 c.execute("""UPDATE regis SET
-                First_Name=:First_Name
-                Last_Name=:Last_Name
-
-                Date_of_birth:Date_of_birth
-        
+                
                 Username=:Username,
                 Enter_password=:Enter_Password,
                 Confirm_Password=:Confirm_Password
@@ -232,13 +284,15 @@ def update():
 
                 {'Username':newUser.get(),
                 'Enter_Password':newpass.get(),
-                'Confirm_Password':conpass.get(),  
+                'Confirm_Password':conpass.get(),    
                  }
                  )
-    
-                messagebox.showinfo('',"Updated Successfully")
-                conn.commit()   
 
+                messagebox.showinfo('',"Updated Successfully")
+                conn.commit() 
+    
+
+            
     
 
   
@@ -738,24 +792,24 @@ window.mainloop()
 
 
 
+
+
 #for database
 
-# import sqlite3
-# conn=sqlite3.connect("regis.db")
-# conn.execute("create table if not exists regis(First_name text,Last_name text,Date_of_birth text ,Username text , Enter_password text, Confirm_Password text)")
+import sqlite3
+conn=sqlite3.connect("regis.db")
+conn.execute("create table if not exists regis(First_name text,Last_name text,Date_of_birth text ,Username text , Enter_password text, Confirm_Password text)")
 
 
 
-# def insert(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password):
+def insert(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password):
 
-#     query="insert into regis(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password) values(?,?,?,?,?,?)"
-#     conn.execute(query,(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password))
-#     conn.commit()
+    query="insert into regis(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password) values(?,?,?,?,?,?)"
+    conn.execute(query,(First_name ,Last_name ,Date_of_birth  ,Username  , Enter_password , Confirm_Password))
+    conn.commit()
 
-# conn.commit()
+conn.commit()
 # conn.close()
-
-
 
 
 
